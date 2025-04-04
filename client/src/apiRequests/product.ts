@@ -6,9 +6,22 @@ import {
   ProductResType,
   UpdateProductBodyType
 } from '@/schemaValidations/product.schema'
-
+import axios from 'axios'
 const productApiRequest = {
-  getList: () => http.get<ProductListResType>('/products'),
+
+  
+  getList: async () => {
+    try {
+      const response = await axios.get<ProductListResType>('/products');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+
+
+
   getDetail: (id: number) => http.get<ProductResType>(`/products/${id}`),
   create: (body: CreateProductBodyType) =>
     http.post<ProductResType>('/products', body),

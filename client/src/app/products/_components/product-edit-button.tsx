@@ -11,9 +11,22 @@ export default function ProductEditButton({
   product: ProductListResType['data'][0]
 }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  
+  // Check authentication status using axios
+  const checkAuth = async () => {
+    try {
+      const token = localStorage.getItem('sessionToken')
+      setIsAuthenticated(Boolean(token))
+    } catch (error) {
+      console.error('Error checking authentication:', error)
+      setIsAuthenticated(false)
+    }
+  }
+
   useEffect(() => {
-    setIsAuthenticated(Boolean(localStorage.getItem('sessionToken')))
+    checkAuth()
   }, [])
+
   if (!isAuthenticated) return null
 
   return (
@@ -25,3 +38,5 @@ export default function ProductEditButton({
     </div>
   )
 }
+
+

@@ -2,7 +2,6 @@ import { updateMeController } from '@/controllers/account.controller'
 import { requireLoginedHook } from '@/hooks/auth.hooks'
 import { AccountRes, AccountResType, UpdateMeBodyType } from '@/schemaValidations/account.schema'
 import { FastifyInstance, FastifyPluginOptions } from 'fastify'
-
 export default async function accountRoutes(fastify: FastifyInstance, options: FastifyPluginOptions) {
   fastify.addHook('preValidation', fastify.auth([requireLoginedHook]))
   fastify.get<{ Reply: AccountResType }>(
